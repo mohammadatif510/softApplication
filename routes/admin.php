@@ -20,8 +20,8 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
         Route::get('/index', 'index')->name('role.category.index');
         Route::post('/store', 'store')->name('admin.role.category.store');
         Route::get('/edit/{id}', 'edit')->name('admin.role.category.edit');
-        Route::put('/update/{id}', 'update')->name('admin.role.category.update');
-        Route::delete('/delete/{id}/{roleCategoryName}', 'delete')->name('roleCategory.delete');
+        Route::post('/update', 'update')->name('admin.role.category.update');
+        Route::get('/delete/{id}/{roleCategoryName}', 'delete')->name('roleCategory.delete');
     });
 
 
@@ -30,6 +30,7 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
         Route::get('index', 'index')->name('role.index');
         Route::post('store', 'store')->name('role.store');
         Route::get('edit/{id}', 'edit')->name('role.edit');
-        Route::delete('delete/{id}/{roleName}', 'delete')->name('role.delete');
+        Route::put('update', 'update')->name('role.update');
+        Route::get('delete/{id}/{roleName}', 'delete')->name('role.delete');
     });
 });

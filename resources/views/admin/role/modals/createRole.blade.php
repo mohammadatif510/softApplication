@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <select class="form-control mb-3" name="roleCategoryId">
-                                <option selected>Select Role Category</option>
+                                <option disabled>Select Role Category</option>
                                 @foreach ($roleCategories as $roleCategorie)
                                 <option value="{{ $roleCategorie->id }}">{{ $roleCategorie->name }}</option>
                                 @endforeach

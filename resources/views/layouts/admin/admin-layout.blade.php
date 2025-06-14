@@ -2,128 +2,105 @@
 <html lang="en">
 
 <head>
-
-
     <meta charset="utf-8" />
     <title>Admin | Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="SoftApplication" name="description" />
-    <meta content="" name="author" />
+    <meta name="author" content="" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- App favicon -->
+    <!-- Favicon -->
     <link rel="shortcut icon" href="">
 
-    <link href="{{ asset('assets/plugins/datatables/datatable.css') }}" rel="stylesheet" type="text/css" />
+    <!-- CSS -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/animate/animate.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-    <!-- App css -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-
+    <!-- ✅ DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 </head>
 
 <body id="body" class="dark-sidebar">
-    <!-- leftbar-tab-menu -->
     @include('../../components/admin/sidebar')
-    <!-- end left-sidenav-->
-    <!-- end leftbar-tab-menu-->
-
-    <!-- Top Bar Start -->
-    <!-- Top Bar Start -->
     @include('../../components/admin/header')
-    <!-- Top Bar End -->
-    <!-- Top Bar End -->
 
     <div class="page-wrapper">
-
-        <!-- Page Content-->
         <div class="page-content-tab">
-
             <div class="container-fluid">
-                <!-- Page-Title -->
                 @include('../../components/page-title')
-                <!-- end page title end breadcrumb -->
-
-                <!-- content -->
                 @yield('admin-content')
-                <!-- end content -->
+            </div>
 
-            </div><!-- container -->
-
-
-
-            <!--Start Footer-->
-            <!-- Footer Start -->
             <footer class="footer text-center text-sm-start">
-                &copy;
-                <script>
+                &copy; <script>
                     document.write(new Date().getFullYear())
-                </script> Unikit <span class="text-muted d-none d-sm-inline-block float-end">Crafted
-                    with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes</span>
+                </script> Unikit
+                <span class="text-muted d-none d-sm-inline-block float-end">
+                    Crafted with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes
+                </span>
             </footer>
-            <!-- end Footer -->
-            <!--end footer-->
         </div>
-        <!-- end page content -->
     </div>
-    <!-- end page-wrapper -->
 
-    <!-- Javascript  -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- ✅ JS Scripts -->
+
+    <!-- jQuery (Required for DataTables) -->
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/simple-datatables.js') }}"></script>
-    <script src="{{ asset('assets/pages/datatable.init.js') }}"></script>
-    <!-- App js -->
+
+    <!-- ✅ DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Bootstrap & App -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
 
-    <!-- Custome Script -->
+    <!-- Sweet Alert -->
+    <script src="{{ asset('assets/plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/sweet-alert.init.js') }}"></script>
+
+    <!-- Toastify -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- ✅ Your Custom JS -->
     <script src="{{ asset('assets/js/role.js') }}"></script>
     <script src="{{ asset('assets/js/roleCategory.js') }}"></script>
 
-
-
-    @if (Session::has('success'))
-
+    @if(session()->has('message') && session()->has('type'))
     <script>
-        Toastify({
-            text: "Data Successfully add",
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "bottom",
-            position: "center",
-            stopOnFocus: true,
-            style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-            },
-            onClick: function(){}
-        }).showToast();
+        document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: '{{ session('type') }}', // success, error, warning, info
+            title: '{{ session('message') }}',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+    });
     </script>
     @endif
 
 
-    @if (Session::has('error'))
 
+    <!-- ✅ Initialize DataTable -->
     <script>
-        Toastify({
-            text: "Data Deleted",
-            duration: 3000,
-            newWindow: true,
-            close: true,
-            gravity: "bottom",
-            position: "center",
-            stopOnFocus: true,
-            style: {
-                background: "red",
-            },
-            onClick: function(){}
-        }).showToast();
+        $(document).ready(function () {
+            if ($.fn.DataTable.isDataTable('#datatable_2')) {
+                $('#datatable_2').DataTable().destroy();
+            }
+            $('#datatable_2').DataTable();
+        });
+        
     </script>
-    @endif
 </body>
-<!--end body-->
 
 </html>

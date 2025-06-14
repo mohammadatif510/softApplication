@@ -10,7 +10,7 @@
             </div>
             <!--end card-header-->
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive" id="roleTableWrapper">
                     <table class="table" id="datatable_2">
                         <thead class="thead-light">
                             <tr>
@@ -22,7 +22,7 @@
                         </thead>
                         <tbody>
                             @foreach ($roles as $role)
-                            <tr>
+                            <tr id="role-row-{{ $role->id }}">
                                 <td>
                                     {{ $role->name }}
 
@@ -43,16 +43,11 @@
                                         data-bs-target="#editRoleModal">
                                         <i class=" fas fa-edit"></i>
                                     </a>
-                                    <form
-                                        action="{{ route('role.delete',['id' => $role->id,'roleName'=>$role->name]) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit" class="btn btn-de-primary btn-sm">
-                                            <i class="fas fa-trash "></i>
-                                        </button>
-                                    </form>
+                                    <a href="javascript:void(0)" data-id="{{ $role->id }}"
+                                        data-role-name="{{ $role->name }}"
+                                        class="btn btn-de-primary btn-sm delete-role">
+                                        <i class="fas fa-trash "></i>
+                                    </a>
                                     @endif
                                 </td>
                             </tr>
@@ -77,4 +72,5 @@
     </div>
     <!--end modal-dialog-->
 </div>
+
 @endsection

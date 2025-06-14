@@ -10,7 +10,7 @@
             </div>
             <!--end card-header-->
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive" id="roleCategoryTableWrapper">
                     <table class="table" id="datatable_2">
                         <thead class="thead-light">
                             <tr>
@@ -21,7 +21,7 @@
                         </thead>
                         <tbody>
                             @foreach ($roleCategories as $roleCategory)
-                            <tr>
+                            <tr id="roleCategory-row-{{ $roleCategory->id }}">
                                 <td>
                                     {{ $roleCategory->name }}
 
@@ -35,16 +35,12 @@
                                         data-bs-target="#editRoleCategoryModal" data-id="{{ $roleCategory->id }}">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form
-                                        action="{{ route('roleCategory.delete',['id' => $roleCategory->id,'roleCategoryName'=>$roleCategory->name]) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('DELETE')
 
-                                        <button type="submit" class="btn btn-de-primary btn-sm">
-                                            <i class="fas fa-trash "></i>
-                                        </button>
-                                    </form>
+                                    <a href="javascript:void(0)" data-id="{{ $roleCategory->id }}"
+                                        data-role-category-name="{{ $roleCategory->name }}"
+                                        class="btn btn-de-primary btn-sm delete-role-category-form">
+                                        <i class="fas fa-trash "></i>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach

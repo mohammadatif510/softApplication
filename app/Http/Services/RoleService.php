@@ -24,6 +24,14 @@ class RoleService
         ]);
     }
 
+    public function roleUpdate(array $data)
+    {
+        return Role::findOrfail($data['roleId'])->update([
+            'name' => $data['name'],
+            'role_category_id' => $data['roleCategoryId']
+        ]);
+    }
+
     public function roleDelete($id)
     {
         return Role::findOrfail($id)->delete();

@@ -1,6 +1,6 @@
-<form action="{{ route('admin.role.category.update',['id' => $roleCategory->id]) }}" method="post">
+<form action="javascript:void(0)" class="updateRoleCategoryModal" method="post">
     @csrf
-    @method('PUT')
+    <input type="hidden" name="id" value="{{ $roleCategory->id }}">
     <div class="modal-content">
         <div class="modal-header">
             <h6 class="modal-title m-0" id="myLargeModalLabel">Edit Role Category</h6>
@@ -10,7 +10,7 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-lg-8">
-                    <input type="text" name="name" class="form-control" placeholder="Role Category Name"
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Role Category Name"
                         value="{{ $roleCategory->name }}">
                     <div id="role-error" class="text-danger mt-2"></div>
                 </div>

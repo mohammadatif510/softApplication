@@ -1,4 +1,4 @@
-$("#createRoleForm").on('submit', function(e) {
+$(document).on('submit',"#createRoleForm" ,function(e) {
     e.preventDefault();
 
     let formData = $(this).serialize();
@@ -11,13 +11,13 @@ $("#createRoleForm").on('submit', function(e) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-            $('#createRoleModal').modal('hide')
-            location.reload();
+            sweetAlert(response.message,'success')
+            tableRefreshRole()
+            closeModal('exampleModalLarge');
         },
         error: function (xhr) {
-            let error = xhr.responseJSON?.errors?.name?.[0] || 'Something went wrong';
-            $('#role-error').text(error);
-            $('#role-category-error').text(error);
+            let errors = xhr.responseJSON?.errors || {};
+            $('#role-error').text(errors.name?.[0] || '');
         }
     });
 });
@@ -36,3 +36,103 @@ $(document).on('click','#openRoleModal',function(){
         }
     })
 })
+
+$(document).on('submit', "#editRoleFormModal",function(e) {
+    e.preventDefault();
+
+    let formData = $(this).serialize();
+
+    $.ajax({
+        url: "/admin/role/update",
+        type: 'POST',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        success: function (response) {
+            sweetAlert(response.message,'success')
+            tableRefreshRole()
+            closeModal('editRoleModal');
+        },
+         error: function (xhr) {
+           
+            let errors = xhr.responseJSON?.errors || {};
+            $('#role-error').text(errors.name?.[0] || '');
+        }
+    });
+});
+
+//delte role script
+$(document).on('click', '.delete-role', function (e) {
+    e.preventDefault();
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          
+            const id = $(this).data('id');
+            const roleName = $(this).data('role-name');
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/admin/role/delete/' + id + '/'+ roleName,
+                type: 'get',
+                success: function (response) {
+
+                     sweetAlert(response.message,'error')
+                    $('#role-row-' + id).remove();
+                },
+                error: function (xhr) {
+                    alert('Failed to delete.');
+                }
+            });
+        }
+    });
+});//end of script
+
+
+function sweetAlert(response, icon)
+{
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: icon,
+        title: response,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+}
+
+function closeModal($modalName)
+{
+    let modalEl = document.getElementById($modalName);
+    let modalInstance = bootstrap.Modal.getInstance(modalEl);
+    if (!modalInstance) {
+        modalInstance = new bootstrap.Modal(modalEl);
+    }
+    modalInstance.hide();
+
+}
+
+function tableRefreshRole() {
+
+    $('#roleTableWrapper').load(location.href + ' #roleTableWrapper > *', function () {
+        $('#datatable_2').DataTable(); // Re-initialize
+    });
+}

@@ -18,6 +18,7 @@ class RoleCategories extends Controller
     public function index()
     {
         session()->put('title', 'Role Category Details');
+
         $roleCategories = RoleCategory::all();
         return view('admin.roleCategory.index', ['roleCategories' => $roleCategories]);
     }
@@ -30,7 +31,7 @@ class RoleCategories extends Controller
 
         RoleCategory::create($request->all());
 
-        return redirect()->back()->with('success', 'Role created successfully!');
+        return response()->json(['message' => 'Role Category created successfully!']);
     }
 
     public function edit($id)
@@ -40,15 +41,15 @@ class RoleCategories extends Controller
         return view('admin.roleCategory.modals.editRoleCategory', compact('roleCategory'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
             'name' => 'required',
         ]);
 
-        RoleCategory::findOrfail($id)->update($request->all());
+        RoleCategory::findOrfail($request->id)->update($request->all());
 
-        return redirect()->back()->with('success', 'Role Category updated successfully!');
+        return response()->json(['message' => 'Role Category updated successfully!']);
     }
 
     public function delete($id, $roleCategoryName)
@@ -59,6 +60,6 @@ class RoleCategories extends Controller
 
         RoleCategory::findOrfail($id)->delete();
 
-        return redirect()->back()->with('success', 'Role Category Deleted');
+        return response()->json(['message' => 'Role Category deleted successfully!']);
     }
 }

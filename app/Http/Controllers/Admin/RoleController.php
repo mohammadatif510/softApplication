@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleFormRequest;
 use App\Http\Services\RoleService;
 use App\Models\RoleCategory;
 use Illuminate\Http\Request;
@@ -16,10 +17,6 @@ class RoleController extends Controller
     public function __construct(RoleService $role_service)
     {
         session()->put('title', 'Role Details');
-
-        if (!Auth::user()->hasRole('admin')) {
-            abort(403, 'Only admin have access');
-        }
 
         $this->role_service = $role_service;
     }
@@ -35,16 +32,11 @@ class RoleController extends Controller
         return view('admin.role.index', compact('roles', 'roleCategories'));
     }
 
-    public function store(Request $request)
+    public function store(RoleFormRequest $request)
     {
-        $request->validate([
-            'name' => 'required|unique:roles,name',
-            'roleCategoryId' => 'required'
-        ]);
-
         $this->role_service->roleStore($request->all());
 
-        return redirect()->back()->with('success', 'Role created successfully!');
+        return response()->json(['message' => 'Role created successfully!']);
     }
 
     public function edit($id)
@@ -52,6 +44,16 @@ class RoleController extends Controller
         $roleData = Role::findOrfail($id);
         $roleCategories = RoleCategory::all();
         return view('admin.role.modals.editRole', compact('roleData', 'roleCategories'));
+    }
+
+    public function update(RoleFormRequest $request)
+    {
+
+        $validator = $request->validated();
+
+        $this->role_service->roleUpdate($validator);
+
+        return response()->json(['message' => 'Role updated successfully']);
     }
 
     public function delete($id, $roleName)
@@ -62,6 +64,6 @@ class RoleController extends Controller
 
         $this->role_service->roleDelete($id);
 
-        return redirect()->back()->with('success', 'Role Delete Successfully');
+        return response()->json(['message' => 'Role deleted successfully!']);
     }
 }
