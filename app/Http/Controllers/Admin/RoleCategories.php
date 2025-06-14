@@ -11,13 +11,13 @@ class RoleCategories extends Controller
 {
     public function __construct()
     {
+        session()->put('title', 'Role Category Details');
         if (!Auth::user()->hasRole('admin')) {
             abort(403, 'Only admin have access');
         }
     }
     public function index()
     {
-        session()->put('title', 'Role Category Details');
 
         $roleCategories = RoleCategory::all();
         return view('admin.roleCategory.index', ['roleCategories' => $roleCategories]);
@@ -55,7 +55,7 @@ class RoleCategories extends Controller
     public function delete($id, $roleCategoryName)
     {
         if ($roleCategoryName == 'Management') {
-            abort(403, 'This category can not be deleted becuase of a "Main Role" you can delete role of this category');
+            return response()->json(['message' => 'This category can not be deleted becuase of a "Main Role"!']);
         }
 
         RoleCategory::findOrfail($id)->delete();

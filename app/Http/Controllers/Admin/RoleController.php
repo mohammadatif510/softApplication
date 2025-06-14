@@ -18,6 +18,10 @@ class RoleController extends Controller
     {
         session()->put('title', 'Role Details');
 
+        if (!Auth::user()->hasRole('admin')) {
+            abort(403, 'Only admin have access');
+        }
+
         $this->role_service = $role_service;
     }
 
@@ -59,7 +63,8 @@ class RoleController extends Controller
     public function delete($id, $roleName)
     {
         if ($roleName === 'admin') {
-            abort(403, 'Admin role cannot be deleted.');
+
+            return response()->json(['message' => 'Admin role cannot be deleted!']);
         }
 
         $this->role_service->roleDelete($id);

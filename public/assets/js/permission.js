@@ -1,10 +1,10 @@
-$(document).on('submit',"#createRoleForm" ,function(e) {
+$(document).on('submit',"#createPermissionForm" ,function(e) {
     e.preventDefault();
 
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/role/store",
+        url: "/admin/permission/store",
         type: 'POST',
         data: formData,
         headers: {
@@ -12,23 +12,24 @@ $(document).on('submit',"#createRoleForm" ,function(e) {
         },
         success: function (response) {
             sweetAlert(response.message,'success')
-            tableRefreshRole()
-            closeModal('exampleModalLarge');
+            tableRefreshPermission()
+            closeModal('permissionModal');
         },
         error: function (xhr) {
             let errors = xhr.responseJSON?.errors || {};
-            $('#role-error').text(errors.name?.[0] || '');
+            $('#permission-error').text(errors.name);
         }
     });
 });
 
 
-$(document).on('click','#openRoleModal',function(){
+
+$(document).on('click','#openEditpermissionModal',function(){
 
     const id = $(this).data('id')
 
     $.ajax({
-        url:'/admin/role/edit/'+id,
+        url:'/admin/permission/edit/'+id,
         type:'get',
         success:function(response)
         {
@@ -37,13 +38,14 @@ $(document).on('click','#openRoleModal',function(){
     })
 })
 
-$(document).on('submit', "#editRoleFormModal",function(e) {
+
+$(document).on('submit', "#editPermissionForm",function(e) {
     e.preventDefault();
 
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/role/update",
+        url: "/admin/permission/update",
         type: 'POST',
         data: formData,
         headers: {
@@ -51,19 +53,21 @@ $(document).on('submit', "#editRoleFormModal",function(e) {
         },
         success: function (response) {
             sweetAlert(response.message,'success')
-            tableRefreshRole()
-            closeModal('editRoleModal');
+            tableRefreshPermission()
+            closeModal('editpermissionModal');
         },
          error: function (xhr) {
            
             let errors = xhr.responseJSON?.errors || {};
-            $('#role-error').text(errors.name?.[0] || '');
+            $('#permission-error').text(errors.name?.[0] || '');
         }
     });
 });
 
+
+
 //delte role script
-$(document).on('click', '.delete-role', function (e) {
+$(document).on('click', '.delete-permission', function (e) {
     e.preventDefault();
 
     Swal.fire({
@@ -78,7 +82,6 @@ $(document).on('click', '.delete-role', function (e) {
         if (result.isConfirmed) {
           
             const id = $(this).data('id');
-            const roleName = $(this).data('role-name');
             
             $.ajaxSetup({
                 headers: {
@@ -86,12 +89,12 @@ $(document).on('click', '.delete-role', function (e) {
                 }
             });
             $.ajax({
-                url: '/admin/role/delete/' + id + '/'+ roleName,
+                url: '/admin/permission/delete/' + id,
                 type: 'get',
                 success: function (response) {
 
-                     sweetAlert(response.message,'error')
-                    $('#role-row-' + id).remove();
+                    sweetAlert(response.message,'error')
+                    $('#permission-row-' + id).remove();
                 },
                 error: function (xhr) {
                     alert('Failed to delete.');
@@ -102,9 +105,9 @@ $(document).on('click', '.delete-role', function (e) {
 });//end of script
 
 
-function tableRefreshRole() {
+function tableRefreshPermission() {
 
-    $('#roleTableWrapper').load(location.href + ' #roleTableWrapper > *', function () {
+    $('#permissionTableWrapper').load(location.href + ' #permissionTableWrapper > *', function () {
         $('#datatable_2').DataTable(); // Re-initialize
     });
 }

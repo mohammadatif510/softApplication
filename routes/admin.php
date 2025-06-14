@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleCategories;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\AuthController;
@@ -32,5 +33,14 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
         Route::get('edit/{id}', 'edit')->name('role.edit');
         Route::put('update', 'update')->name('role.update');
         Route::get('delete/{id}/{roleName}', 'delete')->name('role.delete');
+    });
+
+    Route::controller(PermissionController::class)->prefix('permission')->group(function () {
+
+        Route::get('index', 'index')->name('permission.index');
+        Route::post('store', 'store')->name('permission.store');
+        Route::get('edit/{id}', 'edit')->name('permission.edit');
+        Route::post('update', 'update')->name('permission.update');
+        Route::get('delete/{id}', 'delete')->name('permission.delete');
     });
 });
