@@ -22,7 +22,7 @@ $(document).on('submit',"#createRoleForm" ,function(e) {
     });
 });
 
-
+//open role edit model
 $(document).on('click','#openRoleModal',function(){
 
     const id = $(this).data('id')
@@ -36,6 +36,46 @@ $(document).on('click','#openRoleModal',function(){
         }
     })
 })
+
+//open permission assign role modal
+$(document).on('click','.assignPermission',function(){
+    const roleId = $(this).data('id')
+
+    $.ajax({
+        url:'/admin/role/assign-permission/'+roleId,
+        type:'get',
+        success:function(response)
+        {
+            $('#modal-dialog-assign-permission').html(response); 
+        }
+    })
+})
+
+
+$(document).on('submit',"#updateAssignPermission" ,function(e) {
+    e.preventDefault();
+
+    let formData = $(this).serialize();
+
+    $.ajax({
+        url: "/admin/role/update/assign/permission",
+        type: 'POST',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        success: function (response) {
+            console.log(response)
+            sweetAlert(response.message,'success')
+            tableRefreshRole()
+            closeModal('assignPermissionModal');
+        },
+        error: function (xhr) {
+            let errors = xhr.responseJSON?.errors || {};
+            $('#role-error').text(errors.name?.[0] || '');
+        }
+    });
+});
 
 $(document).on('submit', "#editRoleFormModal",function(e) {
     e.preventDefault();

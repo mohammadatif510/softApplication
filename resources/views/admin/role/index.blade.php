@@ -41,13 +41,18 @@
                                     <a href="javascript::void(0)" id="openRoleModal" data-id="{{ $role->id }}"
                                         class="btn btn-de-primary btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#editRoleModal">
-                                        <i class=" fas fa-edit"></i>
+                                        <i class=" fas fa-edit"></i> Edit
                                     </a>
                                     <a href="javascript:void(0)" data-id="{{ $role->id }}"
-                                        data-role-name="{{ $role->name }}"
-                                        class="btn btn-de-primary btn-sm delete-role">
-                                        <i class="fas fa-trash "></i>
+                                        data-role-name="{{ $role->name }}" class="btn btn-de-danger btn-sm delete-role">
+                                        <i class="fas fa-trash "></i> Delete
                                     </a>
+                                    <a href="javascript:void(0)" data-id="{{ $role->id }}"
+                                        class="btn btn-de-success btn-sm assignPermission" data-bs-toggle="modal"
+                                        data-bs-target="#assignPermissionModal">
+                                        <i class="fas fa-user-shield"></i> Assign
+                                    </a>
+
                                     @endif
                                 </td>
                             </tr>
@@ -68,6 +73,15 @@
 <div class="modal fade bd-example-modal-lg " id="editRoleModal" tabindex="-1" aria-labelledby="myLargeModalLabel"
     aria-modal="true" role="dialog">
     <div class="modal-dialog modal-lg" id="modal-dialog" role="document">
+
+    </div>
+    <!--end modal-dialog-->
+</div>
+
+
+<div class="modal fade bd-example-modal-lg " id="assignPermissionModal" tabindex="-1"
+    aria-labelledby="myLargeModalLabel" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-lg" id="modal-dialog-assign-permission" role="document">
 
     </div>
     <!--end modal-dialog-->

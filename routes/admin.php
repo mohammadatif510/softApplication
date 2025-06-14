@@ -33,6 +33,9 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
         Route::get('edit/{id}', 'edit')->name('role.edit');
         Route::put('update', 'update')->name('role.update');
         Route::get('delete/{id}/{roleName}', 'delete')->name('role.delete');
+
+        Route::get('assign-permission/{roleId}', 'assignPermission')->name('role.assign.permission');
+        Route::post('update/assign/permission', 'updaetAssignPermission')->name('role.update.assign.permission');
     });
 
     Route::controller(PermissionController::class)->prefix('permission')->group(function () {

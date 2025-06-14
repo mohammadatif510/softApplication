@@ -33,13 +33,13 @@
                                     <a href="javascript:void(0);" class="btn btn-de-primary btn-sm"
                                         id="openEditRoleCategoryModal" data-bs-toggle="modal"
                                         data-bs-target="#editRoleCategoryModal" data-id="{{ $roleCategory->id }}">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit"></i> Edit
                                     </a>
 
                                     <a href="javascript:void(0)" data-id="{{ $roleCategory->id }}"
                                         data-role-category-name="{{ $roleCategory->name }}"
-                                        class="btn btn-de-primary btn-sm delete-role-category-form">
-                                        <i class="fas fa-trash "></i>
+                                        class="btn btn-de-danger btn-sm delete-role-category-form">
+                                        <i class="fas fa-trash "></i> Delete
                                     </a>
                                 </td>
                             </tr>

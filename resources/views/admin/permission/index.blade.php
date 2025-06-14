@@ -39,12 +39,12 @@
                                     <a href="javascript:void(0);" class="btn btn-de-primary btn-sm"
                                         id="openEditpermissionModal" data-bs-toggle="modal"
                                         data-bs-target="#editpermissionModal" data-id="{{ $permission->id }}">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit"></i> Edit
                                     </a>
 
                                     <a href="javascript:void(0)" data-id="{{ $permission->id }}"
-                                        class=" btn btn-de-primary btn-sm delete-permission">
-                                        <i class="fas fa-trash "></i>
+                                        class=" btn btn-de-danger btn-sm delete-permission">
+                                        <i class="fas fa-trash "></i> Delete
                                     </a>
                                 </td>
                             </tr>

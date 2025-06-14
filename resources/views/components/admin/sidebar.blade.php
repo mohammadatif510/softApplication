@@ -48,18 +48,18 @@
                                         Role Categories
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('role.index') }}">
-                                        Roles
-                                    </a>
-                                </li>
+
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('permission.index') }}">
                                         Permissions
                                     </a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('role.index') }}">
+                                        Roles
+                                    </a>
+                                </li>
                             </ul>
                             <!--end nav-->
                         </div>
