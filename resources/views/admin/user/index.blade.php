@@ -50,7 +50,7 @@
                                     <a href="javascript:void(0)" data-id="{{ $user->id }}"
                                         data-role-category-name="{{ $user->name }}"
                                         class="btn btn-de-danger btn-sm delete-role-category-form">
-                                        <i class="fas fa-trash "></i> Delete
+                                        <i class="fas fa-trash "></i> DeActive
                                     </a>
 
                                     <a href="javascript:void(0)" data-id="{{ $user->id }}"

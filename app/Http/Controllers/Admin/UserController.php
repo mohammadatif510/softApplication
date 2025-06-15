@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\UserPasswordCache;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendUserWelcomeEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -42,13 +45,17 @@ class UserController extends Controller
 
         try {
 
-            $password = rand(1, 8);
+
+            $password = Str::random(12);
 
             $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
-                'password' => Hash::make($password)
+                'password' => Hash::make($password),
             ]);
+
+            SendUserWelcomeEmail::dispatch($user, $password);
+
 
             Log::info("User Created {$user->name} By " . Auth::user()->name);
 
