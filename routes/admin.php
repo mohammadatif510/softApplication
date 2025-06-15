@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleCategories;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,15 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     });
 
 
+    Route::controller(PermissionController::class)->prefix('permission')->group(function () {
+
+        Route::get('index', 'index')->name('permission.index');
+        Route::post('store', 'store')->name('permission.store');
+        Route::get('edit/{id}', 'edit')->name('permission.edit');
+        Route::post('update', 'update')->name('permission.update');
+        Route::get('delete/{id}', 'delete')->name('permission.delete');
+    });
+
     Route::controller(RoleController::class)->prefix('role')->group(function () {
 
         Route::get('index', 'index')->name('role.index');
@@ -38,12 +48,12 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
         Route::post('update/assign/permission', 'updaetAssignPermission')->name('role.update.assign.permission');
     });
 
-    Route::controller(PermissionController::class)->prefix('permission')->group(function () {
 
-        Route::get('index', 'index')->name('permission.index');
-        Route::post('store', 'store')->name('permission.store');
-        Route::get('edit/{id}', 'edit')->name('permission.edit');
-        Route::post('update', 'update')->name('permission.update');
-        Route::get('delete/{id}', 'delete')->name('permission.delete');
+    Route::controller(UserController::class)->prefix('user')->group(function () {
+
+        Route::get('index', 'index')->name('user.index');
+        Route::post('store', 'store')->name('user.store');
+        Route::post('assign/role', 'storeAssignRole')->name('user.assign.rolestore');
+        Route::get('assign/role/{id}', 'assignRole')->name('user.assign.role');
     });
 });

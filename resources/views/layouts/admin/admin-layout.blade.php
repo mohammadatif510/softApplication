@@ -21,7 +21,7 @@
     <link href="{{ asset('assets/plugins/animate/animate.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-    <!-- ✅ DataTables CSS -->
+    <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 </head>
 
@@ -47,12 +47,12 @@
         </div>
     </div>
 
-    <!-- ✅ JS Scripts -->
+    <!-- JS Scripts -->
 
     <!-- jQuery (Required for DataTables) -->
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
 
-    <!-- ✅ DataTables JS -->
+    <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <!-- Bootstrap & App -->
@@ -65,14 +65,15 @@
     <!-- Toastify -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-    <!-- ✅ Your Custom JS -->
+    <!-- Your Custom JS -->
     <script src="{{ asset('assets/js/role.js') }}"></script>
     <script src="{{ asset('assets/js/roleCategory.js') }}"></script>
     <script src="{{ asset('assets/js/permission.js') }}"></script>
+    <script src="{{ asset('assets/js/user.js') }}"></script>
     <script src="{{ asset('assets/js/utils.js') }}"></script>
 
 
-    <!-- ✅ Initialize DataTable -->
+    <!-- Initialize DataTable -->
     <script>
         $(document).ready(function () {
             if ($.fn.DataTable.isDataTable('#datatable_2')) {
