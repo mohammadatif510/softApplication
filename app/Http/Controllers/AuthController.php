@@ -20,15 +20,14 @@ class AuthController extends  FortifyController
         return view('auth.admin-login');
     }
 
-
-   public function store(LoginRequest $request)
+    public function store(LoginRequest $request)
     {
         $response = parent::store($request);
 
-        $user = Auth::user();
-
-        if ($user->hasRole('admin')) {
+        if (Auth::check() && Auth::user()->hasRole('admin')) {
             return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->back();
         }
 
         return '/dashboard';

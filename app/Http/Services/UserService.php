@@ -22,9 +22,7 @@ class UserService
     {
         $password = Str::random(12);
 
-        $user = User::findOrFail($data['userId']);
-
-        $user->update([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($password),
