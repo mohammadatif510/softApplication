@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\UserPasswordCache;
 use App\Http\Controllers\Controller;
-use App\Jobs\SendUserWelcomeEmail;
+use App\Http\Services\UserService;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function __construct()
+    protected $userService;
+
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
+
         session()->put('title', 'User Details');
         if (!Auth::user()->hasRole('admin')) {
             abort(403, 'Only admin have access');
@@ -26,12 +26,10 @@ class UserController extends Controller
     public function index()
     {
         try {
-
-            $users = User::all();
-
+            $users = $this->userService->getAllUsers();
             return view('admin.user.index', compact('users'));
         } catch (\Throwable $th) {
-            Log::error("User index error", $th->getMessage());
+            Log::error("User index error: " . $th->getMessage());
             abort(500, 'Something went wrong! please try again');
         }
     }
@@ -44,20 +42,7 @@ class UserController extends Controller
         ]);
 
         try {
-
-
-            $password = Str::random(12);
-
-            $user = User::create([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => Hash::make($password),
-            ]);
-
-            SendUserWelcomeEmail::dispatch($user, $password);
-
-
-            Log::info("User Created {$user->name} By " . Auth::user()->name);
+            $user = $this->userService->createUser($validated);
 
             return response()->json([
                 'success' => true,
@@ -74,24 +59,53 @@ class UserController extends Controller
         }
     }
 
-
-    public function assignRole($id)
+    public function edit($id)
     {
-        try {
-            $user = User::findOrfail($id);
-            $roles = Role::whereNot('name', 'admin')->get();
+        $user = User::findOrfail($id);
 
-            return view('admin.user.modals.assignRole', compact('user', 'roles'));
+        return view('admin.user.modals.editUser', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $request->userId,
+            'userId' => 'required|exists:users,id',
+        ]);
+
+        try {
+            $user = $this->userService->updateUser($validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User updated successfully',
+                'data' => $user
+            ]);
         } catch (\Throwable $th) {
-            Log::error('fetching User assign role error: ' . $th->getMessage());
+            Log::error('User update error: ' . $th->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to fetch assign role . Try again.',
+                'message' => 'Failed to update user. Try again.',
             ], 500);
         }
     }
 
+    public function assignRole($id)
+    {
+        try {
+            $data = $this->userService->getUserWithRoles($id);
+            return view('admin.user.modals.assignRole', $data);
+        } catch (\Throwable $th) {
+            Log::error('Fetching user assign role error: ' . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch assign role. Try again.',
+            ], 500);
+        }
+    }
 
     public function storeAssignRole(Request $request)
     {
@@ -102,13 +116,7 @@ class UserController extends Controller
                 'roles.*' => 'exists:roles,id',
             ]);
 
-            $user = User::findOrFail($request->userId);
-
-            // Convert role IDs to role names
-            $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
-
-            // Assign roles using names
-            $user->syncRoles($roleNames);
+            $this->userService->assignRoles($request->userId, $request->roles);
 
             return response()->json([
                 'message' => 'Roles assigned successfully!',
@@ -118,7 +126,26 @@ class UserController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to assign role . Try again.',
+                'message' => 'Failed to assign role. Try again.',
+            ], 500);
+        }
+    }
+
+    public function deactivate($userId)
+    {
+        try {
+            $result = $this->userService->toggleUserStatus($userId);
+
+            return response()->json([
+                'res' => $result['res'],
+                'message' => $result['message'],
+            ]);
+        } catch (\Throwable $th) {
+            Log::error('User deactivate error: ' . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to deactivate user. Try again.',
             ], 500);
         }
     }

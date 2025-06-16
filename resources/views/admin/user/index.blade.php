@@ -17,6 +17,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Status</th>
                                 <th data-type="date" data-format="YYYY/DD/MM">Created Date</th>
                                 <th>Action</th>
                             </tr>
@@ -38,6 +39,15 @@
                                     @endforeach
                                 </td>
                                 <td>
+                                    @if ($user->deActive == 1)
+                                    <span class="badge bg-info"> DeActive </span>
+
+                                    @else
+                                    <span class="badge bg-success"> Activate </span>
+
+                                    @endif
+                                </td>
+                                <td>
                                     {{ $user->created_at->format('Y : d : M') }}
                                 </td>
                                 <td>
@@ -46,12 +56,19 @@
                                         data-id="{{ $user->id }}">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-
+                                    @if ($user->deActive == 1)
                                     <a href="javascript:void(0)" data-id="{{ $user->id }}"
                                         data-role-category-name="{{ $user->name }}"
-                                        class="btn btn-de-danger btn-sm delete-role-category-form">
+                                        class="btn btn-de-danger btn-sm deActive-user">
+                                        <i class="fas fa-trash "></i> Activate
+                                    </a>
+                                    @else
+                                    <a href="javascript:void(0)" data-id="{{ $user->id }}"
+                                        data-role-category-name="{{ $user->name }}"
+                                        class="btn btn-de-danger btn-sm deActive-user">
                                         <i class="fas fa-trash "></i> DeActive
                                     </a>
+                                    @endif
 
                                     <a href="javascript:void(0)" data-id="{{ $user->id }}"
                                         class="btn btn-de-success btn-sm openEditAssignRoleModal" data-bs-toggle="modal"
@@ -75,7 +92,7 @@
 @include('admin.user.modals.createUser')
 <div class="modal fade" id="edituserModal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-modal="true"
     role="dialog">
-    <div class="modal-dialog modal-lg" id="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" id="edit-user-modal-dialog" role="document">
 
     </div>
 

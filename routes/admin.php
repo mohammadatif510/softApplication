@@ -53,7 +53,10 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
 
         Route::get('index', 'index')->name('user.index');
         Route::post('store', 'store')->name('user.store');
+        Route::get('edit/{id}', 'edit')->name('user.edit');
+        Route::post('update', 'update')->name('user.update');
         Route::post('assign/role', 'storeAssignRole')->name('user.assign.rolestore');
         Route::get('assign/role/{id}', 'assignRole')->name('user.assign.role');
+        Route::get('deactive/{id}', 'deactivate')->name('user.deactive');
     });
 });

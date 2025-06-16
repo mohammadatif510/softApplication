@@ -72,8 +72,8 @@
         <div class="content">
             <h1>Hello {{ $user->name }},</h1>
             <p>
-                We’re thrilled to have you on board! Thank you for joining Soft Application. We’re committed to
-                helping you get the most out of our services and achieve your goals.
+                Your profile is updated as you send request to update you creditentals becuase you have lost you
+                password
             </p>
             <p>
                 If you need any help, feel free to reach out to our support team.
@@ -86,7 +86,7 @@
             </label><br>
 
             <label for="">
-                <strong>Password: </strong> {{ $plainPassword }}
+                <strong>Password: </strong> {{ $password }}
             </label>
         </div>
         <div class="footer">
