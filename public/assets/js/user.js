@@ -4,7 +4,7 @@ $(document).on('submit',"#createUserForm" ,function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/user/store",
+        url: "/user/store",
         type: 'POST',
         data: formData,
         headers: {
@@ -29,7 +29,7 @@ $(document).on('click','#openEdituserModal',function(){
     const id = $(this).data('id')
 
     $.ajax({
-        url:'/admin/user/edit/'+id,
+        url:'/user/edit/'+id,
         type:'get',
         success:function(response)
         {
@@ -46,7 +46,7 @@ $(document).on('submit', "#editUserForm",function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/user/update",
+        url: "/user/update",
         type: 'POST',
         data: formData,
         headers: {
@@ -69,7 +69,7 @@ $(document).on('submit', "#editUserForm",function(e) {
 $(document).on('click', ".openEditAssignRoleModal",function() {
     const id = $(this).data('id');
     $.ajax({
-        url: '/admin/user/assign/role/' + id,
+        url: '/user/assign/role/' + id,
         type: 'get',
         success: function(response) {
             $('#assign-role-modal-dialog').html(response);
@@ -84,7 +84,7 @@ $(document).on('submit', "#assignRoleUserForm",function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/user/assign/role",
+        url: "/user/assign/role",
         type: 'POST',
         data: formData,
         headers: {
@@ -125,7 +125,7 @@ $(document).on('click', '.deActive-user', function (e) {
                 }
             });
             $.ajax({
-                url: '/admin/user/deactive/' + id ,
+                url: '/user/deactive/' + id ,
                 type: 'get',
                 success: function (response) {
 

@@ -4,7 +4,7 @@ $(document).on('submit',"#createPermissionForm" ,function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/permission/store",
+        url: "/permission/store",
         type: 'POST',
         data: formData,
         headers: {
@@ -29,7 +29,7 @@ $(document).on('click','#openEditpermissionModal',function(){
     const id = $(this).data('id')
 
     $.ajax({
-        url:'/admin/permission/edit/'+id,
+        url:'/permission/edit/'+id,
         type:'get',
         success:function(response)
         {
@@ -45,7 +45,7 @@ $(document).on('submit', "#editPermissionForm",function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/permission/update",
+        url: "/permission/update",
         type: 'POST',
         data: formData,
         headers: {
@@ -89,7 +89,7 @@ $(document).on('click', '.delete-permission', function (e) {
                 }
             });
             $.ajax({
-                url: '/admin/permission/delete/' + id,
+                url: '/permission/delete/' + id,
                 type: 'get',
                 success: function (response) {
 

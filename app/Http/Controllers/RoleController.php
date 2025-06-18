@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleFormRequest;
@@ -20,10 +20,6 @@ class RoleController extends Controller
     {
         session()->put('title', 'Role Details');
 
-        if (!Auth::user()->hasRole('admin')) {
-            abort(403, 'Only admin have access');
-        }
-
         $this->role_service = $role_service;
     }
 
@@ -35,7 +31,7 @@ class RoleController extends Controller
         $roles = $rolesAndCategories['roles'];
         $roleCategories = $rolesAndCategories['roleCategories'];
 
-        return view('admin.role.index', compact('roles', 'roleCategories'));
+        return view('role.index', compact('roles', 'roleCategories'));
     }
 
     public function store(RoleFormRequest $request)
@@ -49,7 +45,7 @@ class RoleController extends Controller
     {
         $roleData = Role::findOrfail($id);
         $roleCategories = RoleCategory::all();
-        return view('admin.role.modals.editRole', compact('roleData', 'roleCategories'));
+        return view('role.modals.editRole', compact('roleData', 'roleCategories'));
     }
 
     public function update(RoleFormRequest $request)
@@ -78,7 +74,7 @@ class RoleController extends Controller
 
         $rolePermissions = $role->permissions;
 
-        return view('admin.role.modals.assignPermission', compact('role', 'groupedPermissions', 'rolePermissions'));
+        return view('role.modals.assignPermission', compact('role', 'groupedPermissions', 'rolePermissions'));
     }
 
     public function updaetAssignPermission(Request $request)

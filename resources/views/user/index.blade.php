@@ -1,6 +1,6 @@
-@extends('layouts.admin.admin-layout')
+@extends('layouts.app')
 
-@section('admin-content')
+@section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -89,7 +89,7 @@
         </div>
     </div> <!-- end col -->
 </div>
-@include('admin.user.modals.createUser')
+@include('user.modals.createUser')
 <div class="modal fade" id="edituserModal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-modal="true"
     role="dialog">
     <div class="modal-dialog modal-lg" id="edit-user-modal-dialog" role="document">

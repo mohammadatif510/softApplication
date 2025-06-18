@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,10 +14,6 @@ class PermissionController extends Controller
     public function __construct()
     {
         session()->put('title', 'Permission Details');
-
-        if (!Auth::user()->hasRole('admin')) {
-            abort('Admin have access only');
-        }
     }
 
 
@@ -27,7 +23,7 @@ class PermissionController extends Controller
             $permissions = Permission::with('roles')->get();
             $roles = Role::all();
 
-            return view('admin.permission.index', compact('permissions', 'roles'));
+            return view('permission.index', compact('permissions', 'roles'));
         } catch (\Throwable $e) {
             Log::error('Permission index error' . $e->getMessage());
             abort(500, 'Something went wrong! please try again');
@@ -74,7 +70,7 @@ class PermissionController extends Controller
             Log::info("Permission edit: {$permission->name} by user: '{$user->name}' user Id:" . Auth::user()->id);
 
 
-            return view('admin.permission.modals.editPermission', compact('permission'));
+            return view('permission.modals.editPermission', compact('permission'));
         } catch (\Throwable $e) {
             Log::error('Permission delete error: ' . $e->getMessage());
 

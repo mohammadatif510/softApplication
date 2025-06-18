@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Admin | Panel</title>
+    <title>Dashboard | Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="SoftApplication" name="description" />
     <meta name="author" content="" />
@@ -26,14 +26,14 @@
 </head>
 
 <body id="body" class="dark-sidebar">
-    @include('../../components/admin/sidebar')
-    @include('../../components/admin/header')
+    @include('../../components/sidebar')
+    @include('../../components/header')
 
     <div class="page-wrapper">
         <div class="page-content-tab">
             <div class="container-fluid">
                 @include('../../components/page-title')
-                @yield('admin-content')
+                @yield('content')
             </div>
 
             <footer class="footer text-center text-sm-start">

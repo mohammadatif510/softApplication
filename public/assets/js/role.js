@@ -4,7 +4,7 @@ $(document).on('submit',"#createRoleForm" ,function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/role/store",
+        url: "/role/store",
         type: 'POST',
         data: formData,
         headers: {
@@ -28,7 +28,7 @@ $(document).on('click','#openRoleModal',function(){
     const id = $(this).data('id')
 
     $.ajax({
-        url:'/admin/role/edit/'+id,
+        url:'/role/edit/'+id,
         type:'get',
         success:function(response)
         {
@@ -42,7 +42,7 @@ $(document).on('click','.assignPermission',function(){
     const roleId = $(this).data('id')
 
     $.ajax({
-        url:'/admin/role/assign-permission/'+roleId,
+        url:'/role/assign-permission/'+roleId,
         type:'get',
         success:function(response)
         {
@@ -58,7 +58,7 @@ $(document).on('submit',"#updateAssignPermission" ,function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/role/update/assign/permission",
+        url: "/role/update/assign/permission",
         type: 'POST',
         data: formData,
         headers: {
@@ -83,7 +83,7 @@ $(document).on('submit', "#editRoleFormModal",function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/role/update",
+        url: "/role/update",
         type: 'POST',
         data: formData,
         headers: {
@@ -126,7 +126,7 @@ $(document).on('click', '.delete-role', function (e) {
                 }
             });
             $.ajax({
-                url: '/admin/role/delete/' + id + '/'+ roleName,
+                url: '/role/delete/' + id + '/'+ roleName,
                 type: 'get',
                 success: function (response) {
 

@@ -1,7 +1,7 @@
 <div class="left-sidebar">
     <!-- LOGO -->
     <div class="brand">
-        <a href="{{ route('admin.dashboard') }}" class="logo">
+        <a href="{{ route('dashboard') }}" class="logo">
             <span>
                 <img src="{{ asset('assets/images/logo-sm.png') }}" alt="logo-small" class="logo-sm">
             </span>
@@ -41,27 +41,38 @@
                         <div class="collapse " id="sidebarUserManagemen">
                             <ul class="nav flex-column">
 
+                                @can('create.role.category')
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('role.category.index') }}">
                                         Role Categories
                                     </a>
                                 </li>
+                                @endcan
 
+                                @can('permission.index')
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('permission.index') }}">
                                         Permissions
                                     </a>
                                 </li>
+                                @endcan
+                                @can('role.index')
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('role.index') }}">
                                         Roles
                                     </a>
                                 </li>
+                                @endcan
+
+                                @can('user.index')
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('user.index') }}">Users</a>
                                 </li>
+                                @endcan
                             </ul>
                             <!--end nav-->
                         </div>

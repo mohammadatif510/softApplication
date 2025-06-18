@@ -8,28 +8,22 @@ use Laravel\Fortify\Http\Requests\LoginRequest;
 
 class AuthController extends  FortifyController
 {
-    /*
-    *    Redirect to admin login page
-    */
-    public function adminLogin()
+    public function login()
     {
-        if (Auth::check() && Auth::user()->hasRole('admin')) {
-            return redirect()->route('admin.dashboard');
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
         }
-
-        return view('auth.admin-login');
+        return view('welcome');
     }
 
     public function store(LoginRequest $request)
     {
         $response = parent::store($request);
 
-        if (Auth::check() && Auth::user()->hasRole('admin')) {
-            return redirect()->route('admin.dashboard');
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
         } else {
             return redirect()->back();
         }
-
-        return '/dashboard';
     }
 }

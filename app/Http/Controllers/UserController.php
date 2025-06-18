@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\UserService;
@@ -18,16 +18,13 @@ class UserController extends Controller
         $this->userService = $userService;
 
         session()->put('title', 'User Details');
-        if (!Auth::user()->hasRole('admin')) {
-            abort(403, 'Only admin have access');
-        }
     }
 
     public function index()
     {
         try {
             $users = $this->userService->getAllUsers();
-            return view('admin.user.index', compact('users'));
+            return view('user.index', compact('users'));
         } catch (\Throwable $th) {
             Log::error("User index error: " . $th->getMessage());
             abort(500, 'Something went wrong! please try again');
@@ -63,7 +60,7 @@ class UserController extends Controller
     {
         $user = User::findOrfail($id);
 
-        return view('admin.user.modals.editUser', compact('user'));
+        return view('user.modals.editUser', compact('user'));
     }
 
     public function update(Request $request)
@@ -96,7 +93,7 @@ class UserController extends Controller
     {
         try {
             $data = $this->userService->getUserWithRoles($id);
-            return view('admin.user.modals.assignRole', $data);
+            return view('user.modals.assignRole', $data);
         } catch (\Throwable $th) {
             Log::error('Fetching user assign role error: ' . $th->getMessage());
 

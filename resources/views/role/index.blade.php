@@ -1,6 +1,6 @@
-@extends('layouts.admin.admin-layout')
+@extends('layouts.app')
 
-@section('admin-content')
+@section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -68,7 +68,7 @@
         </div>
     </div> <!-- end col -->
 </div>
-@include('admin.role.modals.createRole')
+@include('role.modals.createRole')
 
 <div class="modal fade bd-example-modal-lg " id="editRoleModal" tabindex="-1" aria-labelledby="myLargeModalLabel"
     aria-modal="true" role="dialog">

@@ -2,12 +2,11 @@
 
 namespace App\Http\Services;
 
-class DashboardService 
+class DashboardService
 {
 
     public function dashboardIndex()
     {
-        return view('admin.dashboard');
+        return view('dashboard');
     }
-
 }

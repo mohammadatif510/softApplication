@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\RoleCategory;
@@ -12,15 +12,12 @@ class RoleCategories extends Controller
     public function __construct()
     {
         session()->put('title', 'Role Category Details');
-        if (!Auth::user()->hasRole('admin')) {
-            abort(403, 'Only admin have access');
-        }
     }
     public function index()
     {
 
         $roleCategories = RoleCategory::all();
-        return view('admin.roleCategory.index', ['roleCategories' => $roleCategories]);
+        return view('roleCategory.index', ['roleCategories' => $roleCategories]);
     }
 
     public function store(Request $request)
@@ -38,7 +35,7 @@ class RoleCategories extends Controller
     {
         $roleCategory = RoleCategory::findOrfail($id);
 
-        return view('admin.roleCategory.modals.editRoleCategory', compact('roleCategory'));
+        return view('roleCategory.modals.editRoleCategory', compact('roleCategory'));
     }
 
     public function update(Request $request)

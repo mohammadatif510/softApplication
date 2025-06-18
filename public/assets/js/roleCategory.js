@@ -4,7 +4,7 @@ $("#createRoleCategoryForm").on('submit', function(e) {
     let formData = $(this).serialize();
 
     $.ajax({
-        url: "/admin/role/category/store",
+        url: "/role/category/store",
         type: 'POST',
         data: formData,
         headers: {
@@ -28,7 +28,7 @@ $(document).on('click', "#openEditRoleCategoryModal",function() {
     const id = $(this).data('id');
 
     $.ajax({
-        url: '/admin/role/category/edit/' + id,
+        url: '/role/category/edit/' + id,
         type: 'get',
         success: function(response) {
             $('#modal-dialog').html(response);
@@ -48,7 +48,7 @@ $(document).on('submit', ".updateRoleCategoryModal", function(e) {
 
     if (name != '') {
         $.ajax({
-            url: "/admin/role/category/update",
+            url: "/role/category/update",
             type: 'POST',
             data: formData,
             headers: {
@@ -95,7 +95,7 @@ $(document).on('click', '.delete-role-category-form', function (e) {
                 }
             });
             $.ajax({
-                url: '/admin/role/category/delete/' + id + '/'+ roleCategoryName,
+                url: '/role/category/delete/' + id + '/'+ roleCategoryName,
                 type: 'get',
                 success: function (response) {
 
