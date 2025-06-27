@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleCategories;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,5 +68,13 @@ Route::middleware(['user'])->group(function () {
         Route::get('index', 'index')->name('project.index');
         Route::get('create', 'create')->name('project.create');
         Route::post('store', 'store')->name('project.store');
+
+        Route::get('list', 'projectList')->name('project.list');
+    });
+
+    Route::controller(ClientController::class)->prefix('client')->group(function () {
+
+        Route::get('index', 'index')->name('client.index');
+        Route::get('project/{id}', 'clientProject')->name('client.project');
     });
 });

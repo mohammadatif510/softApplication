@@ -99,7 +99,7 @@
                                 <!--end nav-item-->
                                 <!--end nav-item-->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="projects-clients.html">Clients</a>
+                                    <a class="nav-link" href="{{ route('client.index') }}">Clients</a>
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">
@@ -107,7 +107,7 @@
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="projects-project.html">Project</a>
+                                    <a class="nav-link" href="{{ route('project.list') }}">Project List</a>
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">

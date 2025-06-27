@@ -61,10 +61,6 @@
             success: function (response) {
 
                 ToastifyModal(response.message,"success","#28a745");
-
-                console.log(response.data);
-
-                // reset form or redirect if needed
                 $('#custom-step')[0].reset();
             },
             error: function (xhr) {

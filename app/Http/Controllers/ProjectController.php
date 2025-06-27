@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Services\ProjectService;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
@@ -27,22 +30,42 @@ class ProjectController extends Controller
         return view('project.create');
     }
 
+    public function projectList()
+    {
+        session()->put('title', 'Project Lists');
+        $projectLists = Project::all();
+
+        return view('project.list', compact('projectLists'));
+    }
+
     public function store(StoreProjectRequest $request)
     {
-        $validated = $request->validated();
+        DB::beginTransaction();
+        try {
+            $validated = $request->validated();
 
-        $client = $this->project_service->storeClient($validated);
-        $project = $this->project_service->storeProject($validated, $client->id);
-        $budget = $this->project_service->storeBudget($validated, $project->id);
+            $client = $this->project_service->storeClient($validated);
+            $project = $this->project_service->storeProject($validated, $client->id);
+            $budget = $this->project_service->storeBudget($validated, $project->id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Project created successfully',
-            'data' => [
-                'client' => $client,
-                'project' => $project,
-                'budget' => $budget,
-            ]
-        ]);
+            DB::commit();
+
+            Log::info("Project created Successfully: client " . $client . " project " . $project . " budget " . $budget);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Project created successfully',
+                'data' => compact('client', 'project', 'budget')
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            Log::error("Project creation failed: " . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong. Try again.',
+            ], 500);
+        }
     }
 }
