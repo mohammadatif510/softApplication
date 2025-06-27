@@ -11,7 +11,7 @@ $(document).on('submit',"#createRoleForm" ,function(e) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-            sweetAlert(response.message,'success')
+            ToastifyModal(response.message,'success',"#28a745")
             tableRefreshRole()
             closeModal('exampleModalLarge');
         },
@@ -66,7 +66,8 @@ $(document).on('submit',"#updateAssignPermission" ,function(e) {
         },
         success: function (response) {
             console.log(response)
-            sweetAlert(response.message,'success')
+            ToastifyModal(response.message,'success',"#28a745")
+
             tableRefreshRole()
             closeModal('assignPermissionModal');
         },
@@ -90,7 +91,8 @@ $(document).on('submit', "#editRoleFormModal",function(e) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-            sweetAlert(response.message,'success')
+            ToastifyModal(response.message,'success',"#28a745")
+
             tableRefreshRole()
             closeModal('editRoleModal');
         },
@@ -130,7 +132,8 @@ $(document).on('click', '.delete-role', function (e) {
                 type: 'get',
                 success: function (response) {
 
-                     sweetAlert(response.message,'error')
+                    ToastifyModal(response.message,'error',"#dc3545")
+
                     $('#role-row-' + id).remove();
                 },
                 error: function (xhr) {

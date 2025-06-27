@@ -48,12 +48,12 @@ step3Prev.addEventListener('click',function(){
 });
 
 
-step4Prev.addEventListener('click',function(){
-    step3Tab.classList.add('active');
-    step3.classList.add('active');
-    step4Tab.classList.remove('active');
-    step4.classList.remove('active');
-});
+// step4Prev.addEventListener('click',function(){
+//     step3Tab.classList.add('active');
+//     step3.classList.add('active');
+//     step4Tab.classList.remove('active');
+//     step4.classList.remove('active');
+// });
 
 
 step2Next.addEventListener('click',function(){

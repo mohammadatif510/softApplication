@@ -11,7 +11,8 @@ $(document).on('submit',"#createUserForm" ,function(e) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-            sweetAlert(response.message,'success')
+            ToastifyModal(response.message,'success',"#28a745")
+
             tableRefreshUser()
             closeModal('createUserModal');
         },
@@ -53,7 +54,8 @@ $(document).on('submit', "#editUserForm",function(e) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-            sweetAlert(response.message,'success')
+        ToastifyModal(response.message,'success',"#28a745")
+
             tableRefreshPermission()
             closeModal('edituserModal');
         },
@@ -91,7 +93,8 @@ $(document).on('submit', "#assignRoleUserForm",function(e) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-            sweetAlert(response.message,'success')
+            ToastifyModal(response.message,'success',"#28a745")
+
             tableRefreshUser()
             closeModal('assignRoleModal');
         },
@@ -129,7 +132,8 @@ $(document).on('click', '.deActive-user', function (e) {
                 type: 'get',
                 success: function (response) {
 
-                     sweetAlert(response.message,response.res)
+                    ToastifyModal(response.message,'error',"#dc3545")
+
                     tableRefreshUser()
 
                 },

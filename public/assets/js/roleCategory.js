@@ -12,7 +12,8 @@ $("#createRoleCategoryForm").on('submit', function(e) {
         },
         success: function (response) {
   
-            sweetAlert(response.message,'success')
+            ToastifyModal(response.message,'success',"#28a745")
+
             tableRefresh()
             closeModal('exampleModalLarge');
         },
@@ -55,7 +56,8 @@ $(document).on('submit', ".updateRoleCategoryModal", function(e) {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             success: function (response) {
-                sweetAlert(response.message,'success');
+              ToastifyModal(response.message,'success',"#28a745")
+
                 tableRefresh();
                 closeModal('editRoleCategoryModal');
             },
@@ -99,7 +101,8 @@ $(document).on('click', '.delete-role-category-form', function (e) {
                 type: 'get',
                 success: function (response) {
 
-                     sweetAlert(response.message,'error')
+                 ToastifyModal(response.message,'error',"#dc3545")
+
                     $('#roleCategory-row-' + id).remove();
                 },
                 error: function (xhr) {

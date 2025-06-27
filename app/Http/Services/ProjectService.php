@@ -2,4 +2,44 @@
 
 namespace App\Http\Services;
 
-class ProjectService {}
+use App\Models\Budget;
+use App\Models\Client;
+use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
+
+class ProjectService
+{
+    public function storeClient(array $data)
+    {
+        return  Client::create([
+            'name'          => $data['name'],
+            'email'         => $data['email'],
+            'phone'         => $data['mobile_no'],
+            'country'       => $data['country'],
+            'address'       => $data['address'],
+            'company_name'  => $data['company_name'],
+            'website'       => $data['website'],
+        ]);
+    }
+
+    public function storeProject(array $data, $clientId)
+    {
+        return Project::create([
+            'created_by'    => Auth::user()->id,
+            'client_id'     => $clientId,
+            'title'         => $data['title'],
+            'status'        => $data['status'],
+            'description'   => $data['description'],
+            'deadline'      => $data['deadline'],
+        ]);
+    }
+
+    public function storeBudget(array $data, $projectId)
+    {
+        return Budget::create([
+            'project_id'    => $projectId,
+            'total_budget'  => $data['budget'],
+            'used_budget'   => $data['budget'],
+        ]);
+    }
+}

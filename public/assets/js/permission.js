@@ -11,7 +11,7 @@ $(document).on('submit',"#createPermissionForm" ,function(e) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-            sweetAlert(response.message,'success')
+            ToastifyModal(response.message,'success',"#28a745")
             tableRefreshPermission()
             closeModal('permissionModal');
         },
@@ -52,7 +52,7 @@ $(document).on('submit', "#editPermissionForm",function(e) {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-            sweetAlert(response.message,'success')
+            ToastifyModal(response.message,'success',"#28a745")
             tableRefreshPermission()
             closeModal('editpermissionModal');
         },
@@ -93,7 +93,7 @@ $(document).on('click', '.delete-permission', function (e) {
                 type: 'get',
                 success: function (response) {
 
-                    sweetAlert(response.message,'error')
+                    ToastifyModal(response.message,'error',"#dc3545")
                     $('#permission-row-' + id).remove();
                 },
                 error: function (xhr) {

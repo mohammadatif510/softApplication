@@ -20,6 +20,7 @@
     <link href="{{ asset('assets/plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/animate/animate.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="{{ asset('assets/plugins/select/selectr.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
@@ -72,12 +73,16 @@
     <!-- Toastify -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+    <!-- Selectr -->
+    <script src="{{ asset('assets/plugins/select/selectr.min.js') }}"></script>
+
     <!-- Your Custom JS -->
     <script src="{{ asset('assets/js/role.js') }}"></script>
     <script src="{{ asset('assets/js/roleCategory.js') }}"></script>
     <script src="{{ asset('assets/js/permission.js') }}"></script>
     <script src="{{ asset('assets/js/user.js') }}"></script>
     <script src="{{ asset('assets/js/utils.js') }}"></script>
+    <script src="{{ asset('assets/js/project.js') }}"></script>
 
     <!-- Initialize DataTable -->
     <script>
@@ -87,7 +92,10 @@
             }
             $('#datatable_2').DataTable();
         });
-        
+           document.addEventListener("DOMContentLoaded", function () {
+            var selectEl = document.querySelector("#default");
+                new Selectr(selectEl);
+        });
     </script>
 </body>
 
