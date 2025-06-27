@@ -52,6 +52,13 @@
     <!-- jQuery (Required for DataTables) -->
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
 
+    <script src="{{ asset('assets/pages/form-wizard.js') }}"></script>
+
+    <script src="{{ asset('assets/plugins/chartjs/chart.js') }}"></script>
+    <script src="{{ asset('assets/plugins/lightpicker/litepicker.js') }}"></script>
+    <script src=" {{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/pages/projects-index.init.js') }}"></script>
+
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
@@ -71,7 +78,6 @@
     <script src="{{ asset('assets/js/permission.js') }}"></script>
     <script src="{{ asset('assets/js/user.js') }}"></script>
     <script src="{{ asset('assets/js/utils.js') }}"></script>
-
 
     <!-- Initialize DataTable -->
     <script>

@@ -90,8 +90,13 @@
                         <div class="collapse " id="sidebarProjects">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="projects-index.html">Dashboard</a>
+                                    <a class="nav-link" href="{{ route('project.index') }}">Dashboard</a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('project.create') }}">Project Create</a>
+                                </li>
+                                <!--end nav-item-->
                                 <!--end nav-item-->
                                 <li class="nav-item">
                                     <a class="nav-link" href="projects-clients.html">Clients</a>
@@ -119,10 +124,6 @@
                                 <!--end nav-item-->
                                 <li class="nav-item">
                                     <a class="nav-link" href="projects-users.html">Users</a>
-                                </li>
-                                <!--end nav-item-->
-                                <li class="nav-item">
-                                    <a class="nav-link" href="projects-create.html">Project Create</a>
                                 </li>
                                 <!--end nav-item-->
                             </ul>

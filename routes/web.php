@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleCategories;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -59,5 +60,11 @@ Route::middleware(['user'])->group(function () {
         Route::post('assign/role', 'storeAssignRole')->name('user.assign.rolestore');
         Route::get('assign/role/{id}', 'assignRole')->name('user.assign.role');
         Route::get('deactive/{id}', 'deactivate')->name('user.deactive');
+    });
+
+
+    Route::controller(ProjectController::class)->prefix('project')->group(function () {
+        Route::get('index', 'index')->name('project.index');
+        Route::get('create', 'create')->name('project.create');
     });
 });
