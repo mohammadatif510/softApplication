@@ -6,7 +6,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('project.create') }}" method="post" id="custom-step">
+                <form action="javascript:void(0)" method="post" id="custom-step">
                     @csrf
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab">
@@ -201,7 +201,7 @@
                             <div>
                                 <button type="button" id="step3Prev"
                                     class="btn btn-secondary float-start">Previous</button>
-                                <button type="button" id="step3Next" class="btn btn-primary float-end">Create</button>
+                                <button type="button" id="submit" class="btn btn-primary float-end">Create</button>
                             </div>
                         </div>
                     </div>

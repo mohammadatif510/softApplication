@@ -42,4 +42,32 @@ class ProjectService
             'used_budget'   => $data['budget'],
         ]);
     }
+
+    public function updateProject(array $data)
+    {
+        $project = Project::findOrfail($data['project_id']);
+
+        $project->update([
+            'created_by'    => Auth::user()->id,
+            'title'         => $data['title'],
+            'status'        => $data['status'],
+            'description'   => $data['description'],
+            'deadline'      => $data['deadline'],
+        ]);
+
+        return $project;
+    }
+
+    public function updateBudget(array $data)
+    {
+        $budget = Budget::findOrfail($data['project_id']);
+
+        $budget->update([
+            'project_id'  => $data['project_id'],
+            'total_budget'  => $data['budget'],
+            'used_budget'   => $data['budget'],
+        ]);
+
+        return $budget;
+    }
 }

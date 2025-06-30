@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\DateHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -18,5 +19,15 @@ class Project extends Model
     public function budget()
     {
         return $this->hasOne(Budget::class);
+    }
+
+    public function getCreatedAgoAttribute()
+    {
+        return DateHelper::timeSinceCreated($this->created_at);
+    }
+
+    public function getDeadlineInfoAttribute()
+    {
+        return DateHelper::deadlineRemaining($this->deadline);
     }
 }

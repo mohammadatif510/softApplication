@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Services\ProjectService;
+use App\Models\Client;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,8 @@ class ProjectController extends Controller
 
     public function create(Request $request)
     {
-        return view('project.create');
+        $clients = Client::all();
+        return view('project.create', compact('clients'));
     }
 
     public function projectList()
@@ -45,12 +47,15 @@ class ProjectController extends Controller
             $validated = $request->validated();
 
             $client = $this->project_service->storeClient($validated);
-            $project = $this->project_service->storeProject($validated, $client->id);
+            $clientId = $client->id;
+
+            $project = $this->project_service->storeProject($validated, $clientId);
+
             $budget = $this->project_service->storeBudget($validated, $project->id);
 
             DB::commit();
 
-            Log::info("Project created Successfully: client " . $client . " project " . $project . " budget " . $budget);
+            Log::info("Project created Successfully: client " . $clientId . " project " . $project->id . " budget " . $budget->id);
 
             return response()->json([
                 'success' => true,
@@ -61,6 +66,42 @@ class ProjectController extends Controller
             DB::rollBack();
 
             Log::error("Project creation failed: " . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong. Try again.',
+            ], 500);
+        }
+    }
+
+    public function edit($id)
+    {
+        $project = Project::findOrfail($id);
+
+        return view('project.edit', compact('project'));
+    }
+
+    public function update(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+
+            $project = $this->project_service->updateProject($request->all());
+
+            $budget = $this->project_service->updateBudget($request->all());
+            DB::commit();
+
+            Log::info("Project updated Successfully:  project " . $project->id . " budget " . $budget->id);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Project updated successfully',
+                'data' => compact('project', 'budget')
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            Log::error("Project updated failed: " . $th->getMessage());
 
             return response()->json([
                 'success' => false,

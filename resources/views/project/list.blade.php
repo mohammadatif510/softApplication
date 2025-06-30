@@ -5,8 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <button class="btn btn-outline-primary float-end" data-bs-toggle="modal"
-                    data-bs-target="#exampleModalLarge">Create Project</button>
+                <a href="{{ route('project.create') }}" class="btn btn-outline-primary float-end">Create Project</a>
             </div>
             <!--end card-header-->
             <div class="card-body">
@@ -17,6 +16,8 @@
                                 <th>Name</th>
                                 <th>Client</th>
                                 <th>Budget</th>
+                                <th>Day</th>
+                                <th>DeadLine</th>
                                 <th>Description</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -24,6 +25,7 @@
                         </thead>
                         <tbody>
                             @foreach ($projectLists as $projectList)
+
                             <tr id="role-row-{{ $projectList->id }}">
                                 <td>
                                     {{ $projectList->title }}
@@ -36,6 +38,13 @@
                                     {{ $projectList->budget->total_budget }}
                                 </td>
                                 <td>
+                                    <span class="badge bg-primary">{{ $projectList->created_ago }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success">{{ $projectList->deadline_info }}</span>
+                                </td>
+
+                                <td>
                                     {{ $projectList->description }}
 
                                 </td>
@@ -44,15 +53,9 @@
                                 </td>
                                 <td>
 
-                                    <a href="javascript::void(0)" id="openRoleModal" data-id="{{ $projectList->id }}"
-                                        class="btn btn-de-primary btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editRoleModal">
+                                    <a href="{{ route('project.edit',['id' => $projectList->id ]) }}"
+                                        class="btn btn-de-primary btn-sm">
                                         <i class=" fas fa-edit"></i> Edit
-                                    </a>
-                                    <a href="javascript:void(0)" data-id="{{ $projectList->id }}"
-                                        data-role-name="{{ $projectList->name }}"
-                                        class="btn btn-de-danger btn-sm delete-role">
-                                        <i class="fas fa-trash "></i> Status
                                     </a>
                                     <a href="javascript:void(0)" data-id="{{ $projectList->id }}"
                                         class="btn btn-de-success btn-sm assignPermission" data-bs-toggle="modal"

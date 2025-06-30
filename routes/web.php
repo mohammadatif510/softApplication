@@ -68,6 +68,8 @@ Route::middleware(['user'])->group(function () {
         Route::get('index', 'index')->name('project.index');
         Route::get('create', 'create')->name('project.create');
         Route::post('store', 'store')->name('project.store');
+        Route::get('edit/{id}', 'edit')->name('project.edit');
+        Route::post('update', 'update')->name('project.update');
 
         Route::get('list', 'projectList')->name('project.list');
     });

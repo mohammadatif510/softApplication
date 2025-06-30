@@ -5,8 +5,6 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <button class="btn btn-outline-primary float-end" data-bs-toggle="modal"
-                    data-bs-target="#exampleModalLarge">Create Role</button>
             </div>
             <!--end card-header-->
             <div class="card-body">
@@ -15,6 +13,7 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>Name</th>
+                                <th>Budget</th>
                                 <th>Description</th>
                                 <th>Status</th>
                             </tr>
@@ -26,7 +25,10 @@
                                     {{ $clientProject->title }}
 
                                 </td>
+                                <td>
+                                    {{ $clientProject->budget->total_budget }}
 
+                                </td>
                                 <td>
                                     {{ $clientProject->description }}
 
