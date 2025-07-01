@@ -78,5 +78,7 @@ Route::middleware(['user'])->group(function () {
 
         Route::get('index', 'index')->name('client.index');
         Route::get('project/{id}', 'clientProject')->name('client.project');
+        Route::get('edit/{id}', 'edit')->name('client.edit');
+        Route::post('update', 'update')->name('client.update');
     });
 });

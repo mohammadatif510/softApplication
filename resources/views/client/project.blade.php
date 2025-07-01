@@ -5,6 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
+                <a href="{{ route('project.create') }}" class="btn btn-outline-primary float-end">Create Project</a>
             </div>
             <!--end card-header-->
             <div class="card-body">

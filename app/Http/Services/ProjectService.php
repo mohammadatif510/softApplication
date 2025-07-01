@@ -43,6 +43,23 @@ class ProjectService
         ]);
     }
 
+    public function updateClient(array $data)
+    {
+        $client = Client::findOrfail($data['client_id']);
+
+        $client->update([
+            'name'          => $data['name'],
+            'email'         => $data['email'],
+            'phone'         => $data['mobile_no'],
+            'country'       => $data['country'],
+            'address'       => $data['address'],
+            'company_name'  => $data['company_name'],
+            'website'       => $data['website'],
+        ]);
+
+        return $client;
+    }
+
     public function updateProject(array $data)
     {
         $project = Project::findOrfail($data['project_id']);

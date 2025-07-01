@@ -15,6 +15,8 @@
                 <p class="text-muted mt-1"></p>
                 <a href="{{ route('client.project',['id' => $client->id]) }}" class="btn btn-sm btn-primary">Project</a>
                 <button type="button" class="btn btn-sm btn-de-primary">Message</button>
+                <a href="{{ route('client.edit',['id' => $client->id]) }}" class="btn btn-sm btn-secondary">Edit</a>
+
             </div>
             <!--end card-body-->
         </div>
