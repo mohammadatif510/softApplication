@@ -84,6 +84,7 @@
     <script src="{{ asset('assets/js/utils.js') }}"></script>
     <script src="{{ asset('assets/js/project.js') }}"></script>
     <script src="{{ asset('assets/js/client.js') }}"></script>
+    <script src="{{ asset('assets/js/team.js') }}"></script>
 
     <!-- Initialize DataTable -->
     <script>

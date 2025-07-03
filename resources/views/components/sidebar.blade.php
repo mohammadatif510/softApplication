@@ -99,7 +99,7 @@
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="projects-team.html">Team</a>
+                                    <a class="nav-link" href="{{ route('team.index') }}">Team</a>
                                 </li>
                                 <!--end nav-item-->
                                 <li class="nav-item">

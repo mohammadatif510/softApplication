@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -80,5 +81,14 @@ Route::middleware(['user'])->group(function () {
         Route::get('project/{id}', 'clientProject')->name('client.project');
         Route::get('edit/{id}', 'edit')->name('client.edit');
         Route::post('update', 'update')->name('client.update');
+    });
+
+    Route::controller(TeamController::class)->prefix('team')->group(function () {
+        Route::get('index', 'index')->name('team.index');
+        Route::get('create', 'create')->name('team.create');
+        Route::post('store', 'store')->name('team.store');
+
+        Route::get('role/{roleCategoryId}', 'getRole')->name('team.role.category');
+        Route::get('select/team/leader/{roleId}', 'getTeamLeader')->name('team.select.team.leader');
     });
 });
