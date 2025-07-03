@@ -3,7 +3,9 @@
 namespace App\Observers;
 
 use App\Mail\TeamCreatedMail;
+use App\Mail\TeamDeleteMail;
 use App\Models\Team;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class TeamObserver
@@ -31,8 +33,13 @@ class TeamObserver
      */
     public function deleted(Team $team): void
     {
-        //
+        Mail::to($team->teamLeader->email)->send(new TeamDeleteMail($team->teamLeader, $team->projects));
+
+        // Detach all members
+        $team->members()->detach();
     }
+
+
 
     /**
      * Handle the Team "restored" event.

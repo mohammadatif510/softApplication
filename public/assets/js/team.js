@@ -59,7 +59,7 @@ $(document).on('submit','#createTeamForm',function(e){
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
         success: function (response) {
-  
+
             ToastifyModal(response.message,'success',"#28a745")
 
             teamRowRefresh()
@@ -73,6 +73,26 @@ $(document).on('submit','#createTeamForm',function(e){
 
 });
 
+
+$(document).on('click','#deleteTeam',function()
+{
+    const teamId = $(this).data('id');
+
+    $.ajax({
+        url:'/team/delete/'+teamId,
+        type:'get',
+        success:function(response)
+        {
+            ToastifyModal(response.message,'success',"#28a745")
+            teamRowRefresh()
+
+        },
+         error: function (xhr) {
+            let error = xhr.responseJSON?.errors?.name?.[0] || 'Something went wrong';
+            $('#role-error').text(error);
+        }
+    })
+})
 
 function teamRowRefresh() {
 

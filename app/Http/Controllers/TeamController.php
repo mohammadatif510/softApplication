@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTeamRequest;
+
 use App\Models\Project;
 use App\Models\RoleCategory;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
 
 class TeamController extends Controller
@@ -78,6 +80,31 @@ class TeamController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['success' => false, 'message' => $th->getMessage()], 500);
+        }
+    }
+
+
+    public function delete($teamId)
+    {
+        DB::beginTransaction();
+        try {
+            $team = Team::with('teamLeader', 'projects')->findOrFail($teamId);
+
+            $team->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Team deleted and email sent successfully'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error('Team deletion failed: ' . $th->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong: ' . $th->getMessage(),
+            ], 500);
         }
     }
 }

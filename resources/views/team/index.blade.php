@@ -25,9 +25,8 @@
                             <i class="las la-ellipsis-v font-24 text-muted"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dLabel1">
-                            <a class="dropdown-item" href="#">Open Project</a>
-                            <a class="dropdown-item" href="#">Edit Card</a>
-                            <a class="dropdown-item" href="#">Delete</a>
+                            <a class="dropdown-item" href="#">Edit Team</a>
+                            <a class="dropdown-item" href="#" id="deleteTeam" data-id="{{ $team->id }}">Delete</a>
                         </div>
                     </div>
                 </div>
