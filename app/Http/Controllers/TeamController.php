@@ -107,4 +107,43 @@ class TeamController extends Controller
             ], 500);
         }
     }
+
+    public function edit($teamId)
+    {
+        $team = Team::findOrFail($teamId);
+
+        $categories = RoleCategory::all();
+        $users = User::all()->reject(function ($user) {
+            return $user->hasAnyRole(['admin', 'Team Leader']);
+        });
+
+        $projects = Project::all();
+
+        return view('team.models.edit', compact('categories', 'users', 'projects', 'team'));
+    }
+
+    public function update(StoreTeamRequest $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validated = $request->validated();
+            $team = Team::findOrFail($validated['teamId']);
+
+            $team->update([
+                'role_category_id' => $validated['role_category_id'],
+                'role_id'          => $validated['role_id'],
+                'team_leader_id'   => $validated['team_leader_id'],
+                'description'      => $validated['description'],
+                'project_id'       => $validated['project_id'],
+            ]);
+
+            $team->members()->sync($validated['members']);
+
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Team Updated successfully']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['success' => false, 'message' => $th->getMessage()], 500);
+        }
+    }
 }

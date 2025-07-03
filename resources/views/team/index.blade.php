@@ -25,7 +25,8 @@
                             <i class="las la-ellipsis-v font-24 text-muted"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dLabel1">
-                            <a class="dropdown-item" href="#">Edit Team</a>
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#teamEditModal"
+                                id="editTeamModel" data-id="{{ $team->id }}">Edit Team</a>
                             <a class="dropdown-item" href="#" id="deleteTeam" data-id="{{ $team->id }}">Delete</a>
                         </div>
                     </div>
@@ -89,6 +90,12 @@
 
 <div class="modal fade" id="teamCreateModal" tabindex="-1" aria-labelledby="teamCreateModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" id="team-modal-dialog">
+    </div>
+</div>
+
+
+<div class="modal fade" id="teamEditModal" tabindex="-1" aria-labelledby="teamEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" id="team-edit-modal-dialog">
     </div>
 </div>
 

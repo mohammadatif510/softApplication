@@ -1,3 +1,4 @@
+
 $(document).on('click','#createTeamModel',function(){
     
     $.ajax({
@@ -85,6 +86,25 @@ $(document).on('click','#deleteTeam',function()
         {
             ToastifyModal(response.message,'success',"#28a745")
             teamRowRefresh()
+
+        },
+         error: function (xhr) {
+            let error = xhr.responseJSON?.errors?.name?.[0] || 'Something went wrong';
+            $('#role-error').text(error);
+        }
+    })
+});
+
+
+$(document).on('click','#editTeamModel',function(){
+    const teamId = $(this).data('id');
+    
+    $.ajax({
+        url:'/team/edit/'+teamId,
+        type:'get',
+        success:function(response)
+        {
+            $("#team-edit-modal-dialog").html(response);
 
         },
          error: function (xhr) {

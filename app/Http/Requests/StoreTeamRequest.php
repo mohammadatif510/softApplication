@@ -29,6 +29,7 @@ class StoreTeamRequest extends FormRequest
             'members'      => 'required|array|min:1',
             'members.*'    => 'exists:users,id',
             'project_id'       => 'required|exists:projects,id',
+            'teamId' => 'nullable|exists:teams,id'
         ];
     }
 }

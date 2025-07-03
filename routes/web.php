@@ -87,6 +87,8 @@ Route::middleware(['user'])->group(function () {
         Route::get('index', 'index')->name('team.index');
         Route::get('create', 'create')->name('team.create');
         Route::post('store', 'store')->name('team.store');
+        Route::get('edit/{teamId}', 'edit')->name('team.edit');
+        Route::post('update', 'update')->name('team.update');
         Route::get('delete/{teamId}', 'delete')->name('team.delete');
 
         Route::get('role/{roleCategoryId}', 'getRole')->name('team.role.category');
