@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
 class TeamCreatedMail extends Mailable implements ShouldQueue
 {
@@ -29,6 +30,7 @@ class TeamCreatedMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: new Address(config('mail.from.address'), config('mail.from.user')),
             subject: 'You have been assigned as a Team Leader',
         );
     }

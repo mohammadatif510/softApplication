@@ -3,95 +3,92 @@
 
 <head>
     <meta charset="UTF-8" />
+    <title>Updated Credentials</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome Email</title>
     <style>
         body {
-            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f7fa;
             color: #333;
+            padding: 30px;
         }
 
         .container {
             max-width: 600px;
-            margin: 40px auto;
-            background: #ffffff;
+            margin: auto;
+            background-color: #ffffff;
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 40px;
         }
 
-        .header {
-            background-color: #0d6efd;
-            padding: 30px;
-            text-align: center;
-            color: white;
+        h1 {
+            color: #2c3e50;
         }
 
-        .content {
-            padding: 30px;
-        }
-
-        .content h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .content p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 12px 24px;
-            background-color: #0d6efd;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
+        .highlight {
+            background-color: #f0f4ff;
+            padding: 15px 20px;
+            border-left: 4px solid #007bff;
+            margin: 20px 0;
+            border-radius: 6px;
         }
 
         .footer {
-            background-color: #f1f1f1;
-            padding: 20px;
-            text-align: center;
-            font-size: 13px;
+            margin-top: 40px;
+            font-size: 14px;
             color: #888;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 25px;
+        }
+
+        .credentials label {
+            display: block;
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .credentials strong {
+            display: inline-block;
+            width: 80px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="header">
-            <h2>Welcome to Soft Application</h2>
-        </div>
-        <div class="content">
-            <h1>Hello {{ $user->name }},</h1>
-            <p>
-                Your profile is updated as you send request to update you creditentals becuase you have lost you
-                password
-            </p>
-            <p>
-                If you need any help, feel free to reach out to our support team.
-            </p>
+        <h1>Credentials Successfully Updated 🔐</h1>
 
-            <hr>
-            <h2>Your Login Cardentials</h2>
-            <label for="">
-                <strong>Email: </strong> {{ $user->email }}
-            </label><br>
+        <p>Dear <strong>{{ $user->name }}</strong>,</p>
 
-            <label for="">
-                <strong>Password: </strong> {{ $password }}
-            </label>
+        <p>As per your request, we have successfully updated your login credentials. You can now access your account using the new details below.</p>
+
+        <div class="highlight">
+            <p><strong>📌 Note:</strong> This action was taken in response to your lost password request. If you did not make this request, please contact our support team immediately.</p>
         </div>
+
+        <div class="credentials">
+            <label><strong>Email:</strong> {{ $user->email }}</label>
+            <label><strong>Password:</strong> {{ $password }}</label>
+        </div>
+
+        <a href="{{ route('login') }}" class="" target="_blank">Login Now</a>
+
         <div class="footer">
-            © [Year] Soft Application. All rights reserved.<br />
-            [Your Address or Contact Info]
+            © {{ date('Y') }} Soft Application. All rights reserved.<br />
+            support@softapplication.com
         </div>
     </div>
 </body>

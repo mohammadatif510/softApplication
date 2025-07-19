@@ -2,14 +2,13 @@
 
 namespace App\Mail;
 
-use App\Models\Team;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Mail\Mailables\Address;
 
 class TeamDeleteMail extends Mailable implements ShouldQueue
 {
@@ -33,6 +32,7 @@ class TeamDeleteMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: new Address(config('mail.from.address'), config('mail.from.user')),
             subject: 'Team Deleted Notification',
         );
     }
