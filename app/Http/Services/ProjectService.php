@@ -26,7 +26,7 @@ class ProjectService
     {
         return Project::create([
             'created_by'    => Auth::user()->id,
-            'client_id'     => $clientId,
+            'client_id'     => $clientId ?? $data['client_id'],
             'title'         => $data['title'],
             'status'        => $data['status'],
             'description'   => $data['description'],

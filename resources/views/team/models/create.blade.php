@@ -76,9 +76,9 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
          
-                var selectMULT = document.querySelector("#multiSelect");
-                new Selectr(selectMULT);
-        });
+        var selectMULT = document.querySelector("#multiSelect");
+        new Selectr(selectMULT);
+    });
 
         new Selectr('#multiSelect', {
             multiple: true,

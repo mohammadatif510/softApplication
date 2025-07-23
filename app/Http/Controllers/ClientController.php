@@ -31,9 +31,13 @@ class ClientController extends Controller
 
     public function clientProject($id)
     {
+
+        $clientDetail = Client::findOrFail($id);
         $clientProjects = Project::where('client_id', $id)->get();
 
-        return view('client.project', compact('clientProjects'));
+        session()->put('client', 'Client "' . $clientDetail->name . '" Projects ');
+
+        return view('client.project', compact('clientProjects', 'clientDetail'));
     }
 
     public function edit($id)
@@ -69,5 +73,32 @@ class ClientController extends Controller
                 'message' => 'Something went wrong. Try again.',
             ], 500);
         }
+    }
+
+    public function showCreateProjectModal($id)
+    {
+        $clientData = Client::findOrFail($id);
+        return view('client.modals.create-project', compact('clientData'));
+    }
+
+    public function createProject(Request $request)
+    {
+        $validated = $request->validate([
+           'client_id'     => 'required|exists:clients,id',
+            'title'         => 'required|string|max:255',
+            'status'        => 'required|in:active,completed,on-hold',
+            'description'   => 'required|string|max:1000',
+            'deadline'      => 'required|date|after_or_equal:today',
+            'budget'        => 'required|numeric|min:0',
+        ]);
+
+        $projectId = $this->project_service->storeProject($validated, $clientId = null);
+        $budget = $this->project_service->storeBudget($validated, $projectId->id);
+
+
+        return response()->json([
+                'success' => true,
+                'message' => 'SProject Created',
+            ]);
     }
 }

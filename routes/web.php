@@ -81,6 +81,9 @@ Route::middleware(['user'])->group(function () {
         Route::get('project/{id}', 'clientProject')->name('client.project');
         Route::get('edit/{id}', 'edit')->name('client.edit');
         Route::post('update', 'update')->name('client.update');
+
+        Route::get('create/project/{id}','showCreateProjectModal')->name('client.create.project');
+        Route::post('project/create','createProject')->name('client.project.create');
     });
 
     Route::controller(TeamController::class)->prefix('team')->group(function () {
