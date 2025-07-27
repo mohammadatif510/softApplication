@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: softapplication-app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+    networks:
+      - laravel
+
+  db:
+    image: mysql:8
+    container_name: softapplication-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: softapplication_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: softapplication-phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - laravel
+
+volumes:
+  db_data:
+
+networks:
+  laravel:

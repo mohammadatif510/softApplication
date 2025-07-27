@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('deActive')->after('email');
+            $table->boolean('deActive')->after('email')->default(0);
         });
     }
 
